@@ -9,11 +9,10 @@ def auto():
     driver.find_element_by_id('username').send_keys(credentials.USERNAME)
     driver.find_element_by_id('password').send_keys(credentials.PASSWORD)
     driver.find_element_by_xpath('//*[@id="loginForm"]/div[4]/input').click()
-    driver.find_element_by_class_name('body').send_keys(ESCAPE)
-    driver.find_element_by_xpath('//*[@id="layout_33"]/a').click()
+    driver.get('https://ssb-prod.ec.louisiana.edu/ssomanager/c/SSB?pkg=bwpktais.P_SelectTimeSheetRoll')
     
     time.sleep(15)
-    driver.close()
+    driver.quit()
 
 #---main---
 auto()
