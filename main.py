@@ -14,25 +14,27 @@ def auto():
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "none"
     driver = webdriver.Chrome(desired_capabilities=caps)
-    # driver = webdriver.Chrome()
     driver.set_page_load_timeout(10)
+    wait = WebDriverWait(driver, 10)
 
-    
     driver.get('https://ulink.louisiana.edu')
-    time.sleep(5)
-    driver.find_element_by_id('username').send_keys(credentials.USERNAME)
-    driver.find_element_by_id('password').send_keys(credentials.PASSWORD)
-    time.sleep(5)
-    element = driver.find_element_by_xpath('//*[@id="loginForm"]/div[4]/input')
-    time.sleep(5)
-    element.click()
 
+    wait.until(EC.element_to_be_clickable((By.ID, 'username'))).send_keys(credentials.USERNAME)
 
-    time.sleep(10)
+    wait.until(EC.element_to_be_clickable((By.ID, 'password'))).send_keys(credentials.PASSWORD)
+
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="loginForm"]/div[4]/input'))).click()
+
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="layout_33"]/a/span'))).click()
+
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="portlet_56_INSTANCE_ZJ9sUpbDoQCa"]/div/div/div/div[1]/p/a'))).click()
+
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
+
+    time.sleep(15)
     driver.quit()
 
 #---main---
 auto()
 
-#Time Entry Button XPATH:
-#//*[@id="layout_33"]/a
+#//*[@id="id____UID5"]/div/div/div
