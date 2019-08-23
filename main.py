@@ -9,7 +9,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-
 def auto():
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "none"
@@ -27,14 +26,16 @@ def auto():
 
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="layout_33"]/a/span'))).click()
 
+    window_before = driver.window_handles[0]
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="portlet_56_INSTANCE_ZJ9sUpbDoQCa"]/div/div/div/div[1]/p/a'))).click()
+    window_after = driver.window_handles[1]
+
+    driver.switch_to.window(window_after)
 
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
-
-    time.sleep(15)
+    
+    time.sleep(10)
     driver.quit()
 
 #---main---
 auto()
-
-#//*[@id="id____UID5"]/div/div/div
