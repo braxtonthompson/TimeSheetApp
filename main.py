@@ -35,10 +35,20 @@ def auto():
     # Banner - Open Time Sheet
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
 
+    # Banner - Enter Time Sheet Hours
     y = 6
     for i in range(number_of_segments):
-        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
+        # wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click().send_keys(segment_hours[i])
+        print('//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a')
+        print(segment_hours[i])
         y += 1
+
+    # Banner - Collect Data
+    time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
+    print(time_period)
+
+    # Outlook
+    
 
     time.sleep(10)
     driver.quit()
@@ -67,4 +77,7 @@ auto()
 # Hour Segment Initial Click:
 #//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[6]/p/a
 #//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[7]/p/a
+
+# Time Period XPATH:
+#//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td
 
