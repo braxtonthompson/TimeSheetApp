@@ -14,8 +14,8 @@ def auto():
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "none"
     driver = webdriver.Chrome(desired_capabilities=caps)
-    driver.set_page_load_timeout(10)
-    wait = WebDriverWait(driver, 10)
+    driver.set_page_load_timeout(100)
+    wait = WebDriverWait(driver, 100)
 
     # Open Chrome
     driver.get('https://ulink.louisiana.edu')
@@ -35,11 +35,16 @@ def auto():
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
 
     # Banner - Enter Time Sheet Hours
-    y = 6
+    y = 7
     for i in range(number_of_segments):
-        # wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click().send_keys(segment_hours[i])
-        print('//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a')
-        print(segment_hours[i])
+        if i == 0:
+            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
+        else:
+            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[6]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
+
+        wait.until(EC.element_to_be_clickable((By.ID, 'hours_id'))).send_keys(str(segment_hours[i]))
+        # time.sleep(2)
+        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
         y += 1
 
     # Banner - Collect Data
@@ -61,7 +66,7 @@ def auto():
 
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="subjectLine0"]'))).send_keys(users_name + ' Time Sheet Entry' + Keys.TAB)
     #//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div'))).send_keys(
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div'))).click().send_keys(
         time_period + '\n' +
         str(credentials.HOURS) + '\n\n' +
         users_name + '\n' +
