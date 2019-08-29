@@ -43,13 +43,11 @@ def auto():
             wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[6]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
 
         wait.until(EC.element_to_be_clickable((By.ID, 'hours_id'))).send_keys(str(segment_hours[i]))
-        # time.sleep(2)
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
         y += 1
 
     # Banner - Collect Data
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
-    print(time_period)
 
     # Outlook
     driver.execute_script("window.open('https://www.google.com');")
@@ -60,20 +58,20 @@ def auto():
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="idSIButton9"]'))).click()
 
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id__3"]'))).click()
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.RECIPIENT + Keys.TAB)
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[2]/div/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.USERNAME + '@louisiana.edu' + Keys.TAB)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.RECIPIENT)
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[2]/button/div'))).click()
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[3]/div/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.USERNAME + '@louisiana.edu' + Keys.TAB)
     users_name = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="O365_MainLink_Me"]/div/div[1]/span'))).text
 
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="subjectLine0"]'))).send_keys(users_name + ' Time Sheet Entry' + Keys.TAB)
-    #//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div'))).click().send_keys(
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div'))).click()
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div'))).send_keys(
         time_period + '\n' +
-        str(credentials.HOURS) + '\n\n' +
+        str(credentials.HOURS) + ' Hours' + '\n\n' +
         users_name + '\n' +
         str(credentials.USERNAME)
     )
-
-
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
 
     time.sleep(1000)
     driver.quit()
@@ -84,6 +82,7 @@ def segments(HOURS):
 
     x = 0
     for i in range(number_of_segments):
+        i # Removes 'problem' from IDE.
         x += 20
         if x <= HOURS:
             segment_hours.append(20)
@@ -93,16 +92,7 @@ def segments(HOURS):
     return segment_hours, number_of_segments
 
 #---main---
-# HOURS = int(input('Enter hours worked: '))
 HOURS = credentials.HOURS
 segment_hours, number_of_segments = segments(HOURS)
 
 auto()
-
-# Hour Segment Initial Click:
-#//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[6]/p/a
-#//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[7]/p/a
-
-# Time Period XPATH:
-#//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td
-
