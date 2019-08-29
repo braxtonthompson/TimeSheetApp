@@ -1,16 +1,20 @@
-from selenium import webdriver
-import time
 import credentials
+import app
+
+import time
+import math
+
+from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import math
+
 
 def auto():
+    # Browser Config
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "none"
     driver = webdriver.Chrome(desired_capabilities=caps)
@@ -27,7 +31,6 @@ def auto():
 
     # Travel to Banner
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="layout_33"]/a/span'))).click()
-    # window_before = driver.window_handles[0]      COMMENTED BECAUSE IM NOT SURE IT'S IMPORTANT
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="portlet_56_INSTANCE_ZJ9sUpbDoQCa"]/div/div/div/div[1]/p/a'))).click()
     driver.switch_to.window(driver.window_handles[1])
 
@@ -49,7 +52,7 @@ def auto():
     # Banner - Collect Data
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
 
-    # Outlook
+    # Outlook - Sign In
     driver.execute_script("window.open('https://www.google.com');")
     driver.switch_to.window(driver.window_handles[2])
     driver.get('https://outlook.com/louisiana.edu')
@@ -57,12 +60,14 @@ def auto():
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="i0118"]'))).send_keys(credentials.PASSWORD + Keys.ENTER)
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="idSIButton9"]'))).click()
 
+    # Outlook - Compose Email
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id__3"]'))).click()
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.RECIPIENT)
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[2]/button/div'))).click()
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[3]/div/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.USERNAME + '@louisiana.edu' + Keys.TAB)
     users_name = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="O365_MainLink_Me"]/div/div[1]/span'))).text
 
+    # Outlook - Fill in email
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="subjectLine0"]'))).send_keys(users_name + ' Time Sheet Entry' + Keys.TAB)
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div'))).click()
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div'))).send_keys(
@@ -73,7 +78,7 @@ def auto():
     )
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
 
-    time.sleep(1000)
+    # Browser Config
     driver.quit()
 
 def segments(HOURS):
