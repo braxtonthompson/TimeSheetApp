@@ -12,7 +12,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-
 def auto():
     # Browser Config
     caps = DesiredCapabilities().CHROME

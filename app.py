@@ -1,32 +1,21 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 import sys
 
-
-class MyWindow(QMainWindow):
-    def __init__(self):
-        super(MyWindow,self).__init__()
-        self.initUI()
-
-    def button_clicked(self):
-        print("clicked")
-
-    def initUI(self):
-        self.setGeometry(200, 200, 650, 550)
-        self.setWindowTitle("Time Sheet App")
-
-        self.label_username = QtWidgets.QLabel(self)
-        self.label_username.setText("Username")
-        self.label_username.move(100,100)
-
-        self.b1 = QtWidgets.QPushButton(self)
-        self.b1.setText("Submit")
-        self.b1.clicked.connect(self.button_clicked)
-
-def window():
+def main():
     app = QApplication(sys.argv)
-    win = MyWindow()
+    win = QMainWindow()
+    win.setGeometry(200,200,300,300) 
+    win.setWindowTitle("My first window!") 
+    p = win.palette()
+    p.setColor(win.backgroundRole(), Qt.red)
+    win.setPalette(p)
+
+    label = QLabel(win)
+    label.setText("my first label")
+    label.move(50, 50)  
+
     win.show()
     sys.exit(app.exec_())
 
-window()
+main()  # make sure to call the function
