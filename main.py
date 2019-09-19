@@ -48,7 +48,7 @@ def auto():
         y += 1
 
     # NOT WORKING
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID8"]/div/div/div'))).click()
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
 
     # Banner - Collect Data
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
