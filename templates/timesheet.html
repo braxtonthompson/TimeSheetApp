@@ -1,9 +1,35 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <title>TimeSheet</title>
-</head>
-<body>
-    <h1>Enter TimeSheet.</h1>
-</body>
+    <head>
+        <title>Trouble Crew Time Sheets</title>
+        <link rel="stylesheet" href="/static/timesheet.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <img src="/static/ul_logo.png" alt="University of Louisiana at Lafayette Logo">
+                <div id="red_line"></div>
+                <h1>Time<br>Entry</h1>
+            </div>
+
+            <form action ="process.php" method="POST">
+                <h2>Username</h2>
+                <input type="text" name="username" placeholder="CXXXXXXXX" required>
+
+                <h2>Password</h2>
+                <input type="password" name="password" autocomplete="current-password" required>
+
+                <h2>Hours Worked</h2>
+                <input type="number" name="hours_worked" placeholder="E.g. '58'" required>
+
+                <div class="center">
+                    <input type="submit" id="submit" name="submit">
+                </div>
+            </form>
+        </div>
+
+        <p class="credit">Created by Braxton Thompson.<a href="https://www.github.com/braxtonthompson" target="_blank"><img src="/static/github_logo.png" alt="GitHub Logo" id="github"></a></p>
+    </body>
 </html>
