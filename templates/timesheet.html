@@ -3,13 +3,13 @@
 <html lang="en">
     <head>
         <title>Trouble Crew Time Sheets</title>
-        <link rel="stylesheet" href="/static/timesheet.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='timesheet.css')}}">
     </head>
 
     <body>
         <div class="wrapper">
             <div class="header">
-                <img src="/static/ul_logo.png" alt="University of Louisiana at Lafayette Logo">
+                <img src="{{url_for('static', filename='ul_logo.png')}}" alt="University of Louisiana at Lafayette Logo">
                 <div id="red_line"></div>
                 <h1>Time<br>Entry</h1>
             </div>
@@ -30,6 +30,6 @@
             </form>
         </div>
 
-        <p class="credit">Created by Braxton Thompson.<a href="https://www.github.com/braxtonthompson" target="_blank"><img src="/static/github_logo.png" alt="GitHub Logo" id="github"></a></p>
+        <p class="credit">Created by Braxton Thompson.<a href="https://www.github.com/braxtonthompson" target="_blank"><img src="{{url_for('static', filename='github_logo.png')}}" alt="GitHub Logo" id="github"></a></p>
     </body>
 </html>
