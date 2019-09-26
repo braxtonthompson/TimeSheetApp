@@ -14,7 +14,54 @@
                 <h1>Time<br>Entry</h1>
             </div>
 
+            <form method="POST" action="" novalidate="novalidate">
+                {{ form.hidden_tag() }}
+                
+                {{ form.username.label(class="form-label") }}
 
+                {% if form.username.errors %}
+                    {{ form.username(class="form-input is-invalid", placeholder="CXXXXXXXX") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-input", placeholder="CXXXXXXXX") }}
+                {% endif %}
+
+
+                {{ form.password.label(class="form-label") }}
+
+                {% if form.password.errors %}
+                    {{ form.password(class="form-input is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-input") }}
+                {% endif %}
+
+
+                {{ form.hours_worked.label(class="form-label") }}
+
+                {% if form.hours_worked.errors %}
+                    {{ form.hours_worked(class="form-input is-invalid", placeholder="E.g. 58") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.hours_worked.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.hours_worked(class="form-input", placeholder="E.g. 58") }}
+                {% endif %}
+                
+                <div class="center">
+                    {{ form.submit(id="submit") }}
+                </div>
+            </form>
 
             <!-- <form action ="process.php" method="POST">
                 <h2>Username</h2>
