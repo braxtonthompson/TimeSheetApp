@@ -11,13 +11,15 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-def auto():
+def selenium_script():
     # Browser Config
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "none"
-    driver = webdriver.Chrome(desired_capabilities=caps)
-    driver.set_page_load_timeout(100)
-    wait = WebDriverWait(driver, 100)
+    driver = webdriver.Chrome(desired_capabilities=caps, chrome_options=options)
+    driver.set_page_load_timeout(10)
+    wait = WebDriverWait(driver, 10)
 
     # Open Chrome
     driver.get('https://ulink.louisiana.edu')
@@ -37,18 +39,19 @@ def auto():
 
     # Banner - Enter Time Sheet Hours
     y = 7
-    for i in range(number_of_segments):
+    for i in range(credentials.number_of_segments):
         if i == 0:
             wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
         else:
             wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[6]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
 
-        wait.until(EC.element_to_be_clickable((By.ID, 'hours_id'))).send_keys(str(segment_hours[i]))
+        wait.until(EC.element_to_be_clickable((By.ID, 'hours_id'))).send_keys(str(credentials.segment_hours[i]))
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
         y += 1
 
     # Submit Time Sheet For Approval
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
+    # wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
+    print('Submitted!')
 
     # Banner - Collect Data
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
@@ -77,28 +80,21 @@ def auto():
         users_name + '\n' +
         str(credentials.USERNAME)
     )
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
+    # wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
+    print('Clicked send!')
 
     # Browser Config
     driver.quit()
 
-def segments(HOURS):
-    number_of_segments = math.ceil(HOURS / 20)
-    segment_hours = []
+def segments():
+    credentials.number_of_segments = math.ceil(credentials.HOURS / 20)
+    credentials.segment_hours = []
 
     x = 0
-    for i in range(number_of_segments):
+    for i in range(credentials.number_of_segments):
         i # Removes 'problem' from IDE.
         x += 20
-        if x <= HOURS:
-            segment_hours.append(20)
+        if x <= credentials.HOURS:
+            credentials.segment_hours.append(20)
         else:
-            segment_hours.append(HOURS % 20)
-    
-    return segment_hours, number_of_segments
-
-#---main---
-HOURS = credentials.HOURS
-segment_hours, number_of_segments = segments(HOURS)
-
-auto()
+            credentials.segment_hours.append(credentials.HOURS % 20)
