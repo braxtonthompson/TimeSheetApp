@@ -3,3 +3,4 @@ __pycache__
 venv
 settings.json
 .vscode
+timesheet.py
