@@ -14,7 +14,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 def selenium_script():
     # Browser Config
     options = webdriver.ChromeOptions()
-    options.add_argument('headless')
+    # options.add_argument('headless')
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "none"
     driver = webdriver.Chrome(desired_capabilities=caps, chrome_options=options)
@@ -49,12 +49,12 @@ def selenium_script():
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
         y += 1
 
-    # Submit Time Sheet For Approval
-    # wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
-    print('Submitted!')
-
     # Banner - Collect Data
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
+
+    # Submit Time Sheet For Approval
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
+    # print('Submitted!')
 
     # Outlook - Sign In
     driver.execute_script("window.open('https://www.google.com');")
@@ -80,8 +80,8 @@ def selenium_script():
         users_name + '\n' +
         str(credentials.USERNAME)
     )
-    # wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
-    print('Clicked send!')
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
+    # print('Clicked send!')
 
     # Browser Config
     driver.quit()
