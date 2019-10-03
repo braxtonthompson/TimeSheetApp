@@ -76,6 +76,7 @@ form {
     border: 1px solid lightgray;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
 }
 
 #submit:hover, #submit:focus {
