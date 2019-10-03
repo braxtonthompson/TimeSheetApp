@@ -37,24 +37,30 @@ def selenium_script():
     # Banner - Open Time Sheet
     wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
 
-    # Banner - Enter Time Sheet Hours
-    y = 7
-    for i in range(credentials.number_of_segments):
-        if i == 0:
-            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
-        else:
-            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[6]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
-
-        wait.until(EC.element_to_be_clickable((By.ID, 'hours_id'))).send_keys(str(credentials.segment_hours[i]))
-        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
-        y += 1
+    # Banner - Collect Status
+    banner_status = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[4]/p'))).text
 
     # Banner - Collect Data
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
 
-    # Submit Time Sheet For Approval
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
-    # print('Submitted!')
+    if banner_status != 0:
+        pass
+    else:
+        # Banner - Enter Time Sheet Hours
+        y = 7
+        for i in range(credentials.number_of_segments):
+            if i == 0:
+                wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[5]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
+            else:
+                wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[6]/td/form/table[1]/tbody/tr[2]/td[' + str(y) + ']/p/a'))).click()
+
+            wait.until(EC.element_to_be_clickable((By.ID, 'hours_id'))).send_keys(str(credentials.segment_hours[i]))
+            wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID5"]/div/div/div'))).click()
+            y += 1
+
+        # Submit Time Sheet For Approval
+        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
+        # print('Submitted!')
 
     # Outlook - Sign In
     driver.execute_script("window.open('https://www.google.com');")
@@ -80,10 +86,14 @@ def selenium_script():
         users_name + '\n' +
         str(credentials.USERNAME)
     )
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
-    # print('Clicked send!')
 
+    if banner_status != 0:
+        print('Clicked send!')
+    else:
+        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
+    
     # Browser Config
+    time.sleep(15)
     driver.quit()
 
 def segments():
