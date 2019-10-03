@@ -14,6 +14,11 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import smtplib, ssl
 
 def selenium_script():
+    """This is the main script that runs the headless Chromedriver with Selenium. 
+    It navigates through ULink using user given credentials. It travels to banner and opens up the user's timesheet.
+    Then, it invokes segments() break up the user inputted "hours worked" into segments of 20 hours.
+    It inputs the chunks of 20 and then submits the timesheet. Lastly, it sends an email to our manager and the sender."""
+
     # Browser Config
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
@@ -66,6 +71,7 @@ def selenium_script():
         # Submit Time Sheet For Approval
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
 
+    # Send Email
     if banner_status != 0:
         print('Sent Email!')
     else:
@@ -76,6 +82,9 @@ def selenium_script():
     driver.quit()
 
 def segments():
+    """Takes the user submitted "hours worked" and divides it into chunks of 20 with a remainder.
+    Returns the chunks in a list."""
+
     credentials.number_of_segments = math.ceil(credentials.HOURS / 20)
     credentials.segment_hours = []
 
@@ -89,15 +98,17 @@ def segments():
             credentials.segment_hours.append(credentials.HOURS % 20)
 
 def send_mail(time_period):
-        port = 587  # For starttls
-        smtp_server = "smtp.office365.com"
-        sender_email = f"{credentials.USERNAME}@louisiana.edu"
-        receiver_email = [credentials.RECIPIENT, sender_email]
-        password = credentials.PASSWORD
+    """Send's an email with user provided and sends it to our manager while also sending it back to the sender for confirmation."""
 
-        message = f'Subject: {credentials.NAME} Time Sheet Entry\n\n{time_period}\n{credentials.HOURS} Hours\n\n{credentials.NAME}\n{credentials.USERNAME}'
+    port = 587  # For starttls
+    smtp_server = "smtp.office365.com"
+    sender_email = f"{credentials.USERNAME}@louisiana.edu"
+    receiver_email = [credentials.RECIPIENT, sender_email]
+    password = credentials.PASSWORD
 
-        server = smtplib.SMTP(smtp_server, port)
-        server.starttls()
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message)
+    message = f'Subject: {credentials.NAME} Time Sheet Entry\n\n{time_period}\n{credentials.HOURS} Hours\n\n{credentials.NAME}\n{credentials.USERNAME}'
+
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()
+    server.login(sender_email, password)
+    server.sendmail(sender_email, receiver_email, message)
