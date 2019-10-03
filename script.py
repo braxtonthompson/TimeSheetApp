@@ -66,6 +66,9 @@ def selenium_script():
         # Submit Time Sheet For Approval
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
 
+    if banner_status != 0:
+        print('Sent Email!')
+    else:
         send_mail(time_period)
     
     # Browser Config
@@ -89,7 +92,7 @@ def send_mail(time_period):
         port = 587  # For starttls
         smtp_server = "smtp.office365.com"
         sender_email = f"{credentials.USERNAME}@louisiana.edu"
-        receiver_email = ["i3raxton@gmail.com", sender_email]
+        receiver_email = [credentials.RECIPIENT, sender_email]
         password = credentials.PASSWORD
 
         message = f'Subject: {credentials.NAME} Time Sheet Entry\n\n{time_period}\n{credentials.HOURS} Hours\n\n{credentials.NAME}\n{credentials.USERNAME}'
