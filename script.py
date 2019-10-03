@@ -11,13 +11,18 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+import smtplib, ssl
+
 def selenium_script():
     # Browser Config
     options = webdriver.ChromeOptions()
-    # options.add_argument('headless')
-    caps = DesiredCapabilities().CHROME
-    caps["pageLoadStrategy"] = "none"
-    driver = webdriver.Chrome(desired_capabilities=caps, chrome_options=options)
+    options.add_argument('headless')
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument("--test-type")
+    capabilities = DesiredCapabilities().CHROME
+    capabilities["pageLoadStrategy"] = "none"
+    driver = webdriver.Chrome(desired_capabilities=capabilities, chrome_options=options)
+    driver.set_window_size(1920, 1080)
     driver.set_page_load_timeout(10)
     wait = WebDriverWait(driver, 10)
 
@@ -44,7 +49,7 @@ def selenium_script():
     time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
 
     if banner_status != 0:
-        pass
+        print('Submitted!')
     else:
         # Banner - Enter Time Sheet Hours
         y = 7
@@ -60,40 +65,11 @@ def selenium_script():
 
         # Submit Time Sheet For Approval
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id____UID11"]/div/div/div'))).click()
-        # print('Submitted!')
 
-    # Outlook - Sign In
-    driver.execute_script("window.open('https://www.google.com');")
-    driver.switch_to.window(driver.window_handles[2])
-    driver.get('https://outlook.com/louisiana.edu')
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="i0116"]'))).send_keys(credentials.USERNAME + '@louisiana.edu' + Keys.ENTER)
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="i0118"]'))).send_keys(credentials.PASSWORD + Keys.ENTER)
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="idSIButton9"]'))).click()
-
-    # Outlook - Compose Email
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id__3"]'))).click()
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.RECIPIENT)
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[2]/button/div'))).click()
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[3]/div/div/div/div/div/div[1]/div/div/input'))).send_keys(credentials.USERNAME + '@louisiana.edu' + Keys.TAB)
-    users_name = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="O365_MainLink_Me"]/div/div[1]/span'))).text
-
-    # Outlook - Fill in email
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="subjectLine0"]'))).send_keys(users_name + ' Time Sheet Entry' + Keys.TAB)
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div'))).click()
-    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div'))).send_keys(
-        time_period + '\n' +
-        str(credentials.HOURS) + ' Hours' + '\n\n' +
-        users_name + '\n' +
-        str(credentials.USERNAME)
-    )
-
-    if banner_status != 0:
-        print('Clicked send!')
-    else:
-        wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[4]/div[2]/div[1]/button[1]/div'))).click()
+        send_mail(time_period)
     
     # Browser Config
-    time.sleep(15)
+    time.sleep(2)
     driver.quit()
 
 def segments():
@@ -108,3 +84,17 @@ def segments():
             credentials.segment_hours.append(20)
         else:
             credentials.segment_hours.append(credentials.HOURS % 20)
+
+def send_mail(time_period):
+        port = 587  # For starttls
+        smtp_server = "smtp.office365.com"
+        sender_email = f"{credentials.USERNAME}@louisiana.edu"
+        receiver_email = ["i3raxton@gmail.com", sender_email]
+        password = credentials.PASSWORD
+
+        message = f'Subject: {credentials.NAME} Time Sheet Entry\n\n{time_period}\n{credentials.HOURS} Hours\n\n{credentials.NAME}\n{credentials.USERNAME}'
+
+        server = smtplib.SMTP(smtp_server, port)
+        server.starttls()
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
