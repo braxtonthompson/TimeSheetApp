@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Trouble Crew Time Sheets</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='timesheet.css')}}">
+    </head>
+
+    <body>
+
+        <div id="hidden_div">Hold tight. This can take up to 30 seconds!</div>
+
+        <div class="wrapper">
+
+            <div class="header">
+                <a href="/"><img src="{{url_for('static', filename='ul_logo.png')}}" alt="University of Louisiana at Lafayette Logo"></a>
+                <div id="red_line"></div>
+                <h1>Time<br>Entry</h1>
+            </div>
+
+            {% block content %}{% endblock %}
+
+        </div>
+
+        <p class="credit">Created by Braxton Thompson.<a href="https://www.github.com/braxtonthompson" target="_blank"><img src="{{url_for('static', filename='github_logo.png')}}" alt="GitHub Logo" id="github"></a></p>
+
+    </body>
+</html>
