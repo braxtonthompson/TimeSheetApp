@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = credentials.SECRET_KEY
 
 @app.route("/", methods=['GET', 'POST'])
+@app.route("/timesheet", methods=['GET', 'POST'])
 def timesheet():
         form = TimesheetForm()
         if form.validate_on_submit():
@@ -18,11 +19,11 @@ def timesheet():
                 script.segments()
                 script.selenium_script()
                 return redirect(url_for('timesheetcomplete'))
-        return render_template('timesheet.html', title='Trouble Crew Time Sheets', form=form)
+        return render_template('timesheet.html', form=form)
 
-@app.route("/timesheet/completion")
+@app.route("/timesheet/complete")
 def timesheetcomplete():
-        return render_template('timesheetinprogress.html', title='Trouble Crew Time Sheets')
+        return render_template('timesheet_complete.html', name=credentials.NAME)
 
 if __name__ == '__main__':
         app.run(debug=True)
