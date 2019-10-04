@@ -2,7 +2,20 @@ body {
     display: flex;
     background-color: white;
     margin: 0;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#hidden_div {
+    display: none;
+    background-color: #ce181ed5;
+    border-bottom: 5px #ce181e solid;
+    padding: 20px 0;
+    color: white;
+    width: 100%;
+    text-align: center;
+    
 }
 
 .wrapper {
