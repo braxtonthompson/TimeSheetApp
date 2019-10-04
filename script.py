@@ -1,8 +1,5 @@
 import credentials
 
-import time
-import math
-
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -13,11 +10,16 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 import smtplib, ssl
 
+import time
+import math
+
 def selenium_script():
     """This is the main script that runs the headless Chromedriver with Selenium. 
     It navigates through ULink using user given credentials. It travels to banner and opens up the user's timesheet.
     Then, it invokes segments() break up the user inputted "hours worked" into segments of 20 hours.
     It inputs the chunks of 20 and then submits the timesheet. Lastly, it sends an email to our manager and the sender."""
+
+    start_time = time.time()
 
     # Browser Config
     options = webdriver.ChromeOptions()
@@ -80,6 +82,8 @@ def selenium_script():
     # Browser Config
     time.sleep(2)
     driver.quit()
+
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 def segments():
     """Takes the user submitted "hours worked" and divides it into chunks of 20 with a remainder.
