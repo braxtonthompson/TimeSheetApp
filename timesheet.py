@@ -12,7 +12,7 @@ app.config['SECRET_KEY'] = credentials.SECRET_KEY
 def timesheet():
         form = TimesheetForm()
         if form.validate_on_submit():
-                credentials.NAME = form.name.data
+                credentials.NAME = form.name.data.capitalize()
                 credentials.USERNAME = form.username.data
                 credentials.PASSWORD = form.password.data
                 credentials.HOURS = form.hours_worked.data
@@ -23,7 +23,7 @@ def timesheet():
 
 @app.route("/timesheet/complete")
 def timesheetcomplete():
-        return render_template('timesheet_complete.html', name=credentials.NAME)
+        return render_template('timesheet_complete.html', name=(credentials.NAME.split(' ', 1)[0]))
 
 if __name__ == '__main__':
         app.run(debug=True)
