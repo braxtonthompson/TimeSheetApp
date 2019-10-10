@@ -20,5 +20,5 @@ def timesheet():
 def timesheetcomplete():
         return render_template('timesheet_complete.html')
 
-if __name__ == '__main__':
-        application.run(host='0.0.0.0')
+# if __name__ == '__main__':
+#         application.run(host='0.0.0.0')
