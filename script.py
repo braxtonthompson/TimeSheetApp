@@ -16,11 +16,11 @@ import math
 
 class Automation:
     
-    def __init__(self, name, username, password, hours):
-        self.name = name
+    def __init__(self, username, password, hours):
+        self.name = 0
         self.username = username
         self.password = password
-        self.hours = hours
+        self.hours = 0
         self.number_of_segments, self.segment_hours = Automation.segments(self)
         self.time_period = 0
 
@@ -41,8 +41,6 @@ class Automation:
                 self.segment_hours.append(20)
             else:
                 self.segment_hours.append(self.hours % 20)
-
-        print(f"Number of segments: {self.number_of_segments}, {self.segment_hours}")
 
         return self.number_of_segments, self.segment_hours
 
@@ -73,6 +71,7 @@ class Automation:
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="loginForm"]/div[4]/input'))).click()
 
         # Travel to Banner
+        self.name = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/nav[2]/div[3]/div/div/div/div[1]/div/div/span[2]/div[2]/ul/li[3]/a/span/span'))).text
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="layout_33"]/a/span'))).click()
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="portlet_56_INSTANCE_ZJ9sUpbDoQCa"]/div/div/div/div[1]/p/a'))).click()
         driver.switch_to.window(driver.window_handles[1])
@@ -114,6 +113,7 @@ class Automation:
         time.sleep(2)
         driver.quit()
 
+        print(self.name)
         print("--- %s seconds ---" % (time.time() - start_time))
 
     def send_mail(self, time_period):
