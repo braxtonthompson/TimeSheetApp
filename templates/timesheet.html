@@ -2,21 +2,8 @@
 {% block content %}
     <form method="POST" action="" novalidate="novalidate">
         {{ form.hidden_tag() }}
-    
-        {{ form.name.label(class="form-label") }}
 
-        {% if form.name.errors %}
-            {{ form.name(class="form-input is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in form.name.errors %}
-                    <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-        {% else %}
-            {{ form.name(class="form-input") }}
-        {% endif %}
 
-        
         {{ form.username.label(class="form-label") }}
 
         {% if form.username.errors %}
