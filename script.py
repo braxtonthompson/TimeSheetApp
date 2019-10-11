@@ -72,7 +72,7 @@ class Automation:
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="loginForm"]/div[4]/input'))).click()
 
         # Travel to Banner
-        self.name = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/nav[2]/div[3]/div/div/div/div[1]/div/div/span[2]/div[2]/ul/li[3]/a/span/span'))).text
+        # self.name = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/nav[2]/div[3]/div/div/div/div[1]/div/div/span[2]/div[2]/ul/li[3]/a/span/span'))).text
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="layout_33"]/a/span'))).click()
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="portlet_56_INSTANCE_ZJ9sUpbDoQCa"]/div/div/div/div[1]/p/a'))).click()
         driver.switch_to.window(driver.window_handles[1])
