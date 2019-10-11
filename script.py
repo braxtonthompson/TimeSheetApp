@@ -61,8 +61,8 @@ class Automation:
         capabilities["pageLoadStrategy"] = "none"
         driver = webdriver.Chrome(desired_capabilities=capabilities, options=options)
         driver.set_window_size(1920, 1080)
-        driver.set_page_load_timeout(10)
-        wait = WebDriverWait(driver, 10)
+        driver.set_page_load_timeout(20)
+        wait = WebDriverWait(driver, 20)
 
         # Open Chrome
         driver.get('https://ulink.louisiana.edu')
