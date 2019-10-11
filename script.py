@@ -55,6 +55,7 @@ class Automation:
         # Browser Config
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
+        options.add_argument('disable-gpu')
         capabilities = DesiredCapabilities().CHROME
         capabilities["pageLoadStrategy"] = "none"
         driver = webdriver.Chrome(desired_capabilities=capabilities, options=options)
