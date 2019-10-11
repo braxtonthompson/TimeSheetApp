@@ -17,12 +17,12 @@ import math
 class Automation:
     
     def __init__(self, username, password, hours):
-        self.name = 0
+        self.name = ''
         self.username = username
         self.password = password
         self.hours = 0
         self.number_of_segments, self.segment_hours = Automation.segments(self)
-        self.time_period = 0
+        self.time_period = ''
 
         Automation.selenium_script(self)
 
