@@ -54,7 +54,7 @@ class Automation:
 
         # Browser Config
         options = webdriver.ChromeOptions()
-        options.add_argument('headless')
+        # options.add_argument('headless')
         options.add_argument('disable-gpu')
         options.add_argument('no-sandbox')
         capabilities = DesiredCapabilities().CHROME
