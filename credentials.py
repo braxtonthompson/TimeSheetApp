@@ -1,6 +1,6 @@
 SECRET_KEY = 'c325bf048d4444685df73bfa95ce454c'
 
-RECIPIENT = 'i3raxton@gmail.com'
+RECIPIENT = 'dana.jones@louisiana.edu'
 
 # Luke's Email
 # C00101509@louisiana.edu
