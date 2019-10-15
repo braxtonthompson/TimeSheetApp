@@ -87,7 +87,7 @@ class Automation:
         # Banner - Collect Data
         self.time_period = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contentHolder"]/div[2]/table[1]/tbody/tr[3]/td'))).text
 
-        if banner_status != 0:
+        if int(banner_status) != 0:
             print('Submitted!')
         else:
             # Banner - Enter Time Sheet Hours
