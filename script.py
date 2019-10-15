@@ -57,6 +57,7 @@ class Automation:
         # options.add_argument('headless')
         options.add_argument('disable-gpu')
         options.add_argument('no-sandbox')
+        options.add_experimental_option( "prefs",{'profile.managed_default_content_settings.javascript': 2})
         capabilities = DesiredCapabilities().CHROME
         capabilities["pageLoadStrategy"] = "none"
         driver = webdriver.Chrome(desired_capabilities=capabilities, options=options)
