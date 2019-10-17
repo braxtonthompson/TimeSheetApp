@@ -1,17 +1,17 @@
 import script
-import credentials
+from config import config
 from flask import Flask, render_template, url_for, redirect
 from forms import TimesheetForm
 
 application = app = Flask(__name__)
 
-app.config['SECRET_KEY'] = credentials.SECRET_KEY
+app.config['SECRET_KEY'] = config['secret_key']
 
 @app.route("/", methods=['GET', 'POST'])
 def timesheet():
         form = TimesheetForm()
         if form.validate_on_submit():
-                script.Automation(form.username.data, form.password.data, form.hours_worked.data)
+                script.Auto(form.username.data, form.password.data, form.hours_worked.data)
                 return redirect(url_for('timesheetcomplete'))
         return render_template('timesheet.html', form=form)
 
