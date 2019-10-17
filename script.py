@@ -101,14 +101,3 @@ class Auto:
         server.starttls()
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, message)
-
-start_time = time.time()
-
-try:
-    Auto('C00412627', 'Mandeville@2016', 58)
-except Exception as e:
-    print(e)
-
-finished_time = (time.time() - start_time)
-
-print(f'Finished in {round(finished_time, 2)} seconds.')

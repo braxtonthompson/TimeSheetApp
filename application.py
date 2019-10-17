@@ -1,4 +1,5 @@
 import script
+import time
 from config import config
 from flask import Flask, render_template, url_for, redirect
 from forms import TimesheetForm
@@ -11,7 +12,13 @@ app.config['SECRET_KEY'] = config['secret_key']
 def timesheet():
         form = TimesheetForm()
         if form.validate_on_submit():
-                script.Auto(form.username.data, form.password.data, form.hours_worked.data)
+                start_time = time.time()
+                try:
+                        script.Auto(form.username.data, form.password.data, form.hours_worked.data)
+                except Exception as e:
+                        print(e)
+                finished_time = (time.time() - start_time)
+                print(f'Finished in {round(finished_time, 2)} seconds.')
                 return redirect(url_for('timesheetcomplete'))
         return render_template('timesheet.html', form=form)
 
