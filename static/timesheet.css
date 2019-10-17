@@ -75,10 +75,13 @@ form {
     border-radius: 5px;
 }
 
+form input[type=text] {
+    padding-left: 8px;;
+}
+
 .form-input::placeholder {
     color: lightgray;
     font-size: 10pt;
-    padding-left: 8px;
 }
 
 #submit {
