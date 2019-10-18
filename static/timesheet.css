@@ -56,8 +56,8 @@ form {
 }
 
 .form-label {
-    margin: 7% 5% 3% 5%;
-    font-size: 1.5em;
+    margin: 7% 5% 3% 6%;
+    font-size: 1.3em;
     font-family: Arial, Helvetica, sans-serif;
     color: #0a0203;
 }
@@ -65,10 +65,10 @@ form {
 .form-input {
     margin: 0 auto;
     color: #0a0203;
-    width: 90%;
+    width: 85%;
     height: 2.5em;
-    font-size: 1.5em;
-    border: 2px solid lightgray;
+    font-size: 1.1em;
+    border: 1px solid lightgray;
     border-radius: 0.2em;
 }
 
@@ -78,7 +78,7 @@ form input[type=text], input[type=password] {
 
 .form-input::placeholder {
     color: lightgray;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .invalid-feedback {
@@ -98,14 +98,14 @@ form input[type=text], input[type=password] {
 #submit {
     all: unset;
     margin-top: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     background-color: white;
     width: 60%;
-    height: 2.5em;
-    border: 2px solid lightgray;
+    height: 2.3em;
+    border: 1px solid lightgray;
     border-radius: 0.1em;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
 }
 
