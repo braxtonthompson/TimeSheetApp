@@ -4,25 +4,33 @@
     <head>
         <title>Trouble Crew Time Sheets</title>
         <link rel="stylesheet" href="{{url_for('static', filename='timesheet.css')}}">
+        <meta name="viewport" content="width=device-width">
+        <link rel="apple-touch-icon" sizes="150x150" href="{{url_for('static'), filename='fluer_de_lis_apple.png'}}">
     </head>
 
     <body>
 
-        <div id="hidden_div">Hold tight. This can take up to 30 seconds!</div>
+        <div id="hidden-div">Hold tight. This can take up to 30 seconds!</div>
 
         <div class="wrapper">
 
             <div class="header">
-                <a href="/"><img src="{{url_for('static', filename='ul_logo.png')}}" alt="University of Louisiana at Lafayette Logo"></a>
-                <div id="red_line"></div>
-                <h1>Time<br>Entry</h1>
+                <a href="/"><img src="{{url_for('static', filename='ul_logo.png')}}" alt="University of Louisiana at Lafayette Logo" id="full-logo"></a>
+                <a href="/"><img src="{{url_for('static', filename='ul_fluer_de_lis.png')}}" alt="University of Louisiana at Lafayette Logo" id="small-logo"></a>
+                <div id="red-line"></div>
+                <span>Time Entry</span>
             </div>
 
             {% block content %}{% endblock %}
 
         </div>
 
-        <p class="credit">Created by Braxton Thompson.<a href="https://www.github.com/braxtonthompson" target="_blank"><img src="{{url_for('static', filename='github_logo.png')}}" alt="GitHub Logo" id="github"></a></p>
+        <span class="credit">
+            <p>Created by Braxton Thompson.</p>
+            <a href="https://www.github.com/braxtonthompson" target="_blank">
+                <img src="{{url_for('static', filename='github_logo.png')}}" alt="GitHub Logo">
+            </a>
+        </span>
 
     </body>
 </html>
