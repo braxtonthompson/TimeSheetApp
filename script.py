@@ -103,7 +103,7 @@ class Auto:
 
 
         else:
-            session['status'] = 'Wrong Password.'
+            session['status'] = 'Wrong Password'
             session['name'] = 'N/A'
             session['hours_worked'] = 'N/A'
             session['timesheet_period'] = 'N/A'
@@ -113,7 +113,6 @@ class Auto:
 
         # time.sleep(10000)
         driver.quit()
-
 
     def send_email(self, timesheet_period):
         """Send's an email with user provided and sends it to our manager while also 
