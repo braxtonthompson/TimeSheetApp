@@ -125,7 +125,7 @@ form input[type=text], input[type=password] {
 }
 
 .status-img {
-    max-width: 100px;
+    max-width: 20%;
     margin-top: 25px;
 }
 
