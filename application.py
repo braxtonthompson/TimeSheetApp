@@ -24,7 +24,11 @@ def timesheet():
 
 @app.route("/complete")
 def timesheetcomplete():
-        return render_template('timesheet_complete.html', status = session['status'])
+        return render_template('timesheet_complete.html', status = session['status'],
+                                                        name = session['name'],
+                                                        hours_worked = session['hours_worked'],
+                                                        timesheet_period = session['timesheet_period'],
+                                                        mail_status = session['mail_status'])
 
 if __name__ == '__main__':
         # application.run(host='0.0.0.0')
