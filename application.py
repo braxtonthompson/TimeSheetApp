@@ -1,7 +1,7 @@
 import script
 import time
 from config import config
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, session
 from forms import TimesheetForm
 
 application = app = Flask(__name__)
@@ -24,8 +24,8 @@ def timesheet():
 
 @app.route("/complete")
 def timesheetcomplete():
-        return render_template('timesheet_complete.html')
+        return render_template('timesheet_complete.html', status = session['status'])
 
 if __name__ == '__main__':
-        application.run(host='0.0.0.0')
-        # application.run(debug=True)
+        # application.run(host='0.0.0.0')
+        application.run(debug=True)
