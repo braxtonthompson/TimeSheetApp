@@ -98,7 +98,7 @@ class Auto:
                 session['name'] = self.name
                 session['hours_worked'] = self.hours_worked
                 session['timesheet_period'] = 'N/A'
-                session['mail_status'] = 'Not sent.'
+                session['mail_status'] = 'Not sent'
                 session['status_img'] = url_for('static', filename='fail_logo.png')
 
 
@@ -107,7 +107,7 @@ class Auto:
             session['name'] = 'N/A'
             session['hours_worked'] = 'N/A'
             session['timesheet_period'] = 'N/A'
-            session['mail_status'] = 'Not sent.'
+            session['mail_status'] = 'Not sent'
             session['status_img'] = url_for('static', filename='fail_logo.png')
 
 
@@ -132,4 +132,4 @@ class Auto:
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, message)
 
-        session['mail_status'] = 'Sent.'
+        session['mail_status'] = 'Sent'

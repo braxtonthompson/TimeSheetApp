@@ -18,8 +18,7 @@ def timesheet():
                 except Exception as e:
                         print(e)
                 finished_time = (time.time() - start_time)
-                session['finished_time'] = finished_time
-                print(f'Finished in {round(finished_time, 2)} seconds.')
+                session['finished_time'] = round(finished_time, 2)
                 return redirect(url_for('timesheetcomplete'))
         return render_template('timesheet.html', form=form)
 
