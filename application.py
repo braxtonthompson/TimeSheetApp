@@ -18,6 +18,7 @@ def timesheet():
                 except Exception as e:
                         print(e)
                 finished_time = (time.time() - start_time)
+                session['finished_time'] = finished_time
                 print(f'Finished in {round(finished_time, 2)} seconds.')
                 return redirect(url_for('timesheetcomplete'))
         return render_template('timesheet.html', form=form)
@@ -29,7 +30,8 @@ def timesheetcomplete():
                                                         hours_worked = session['hours_worked'],
                                                         timesheet_period = session['timesheet_period'],
                                                         mail_status = session['mail_status'],
-                                                        status_img = session['status_img'])
+                                                        status_img = session['status_img'],
+                                                        finished_time = session['finished_time'])
 
 if __name__ == '__main__':
         # application.run(host='0.0.0.0')
