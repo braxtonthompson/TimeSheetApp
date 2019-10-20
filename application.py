@@ -28,7 +28,8 @@ def timesheetcomplete():
                                                         name = session['name'],
                                                         hours_worked = session['hours_worked'],
                                                         timesheet_period = session['timesheet_period'],
-                                                        mail_status = session['mail_status'])
+                                                        mail_status = session['mail_status'],
+                                                        status_img = session['status_img'])
 
 if __name__ == '__main__':
         # application.run(host='0.0.0.0')

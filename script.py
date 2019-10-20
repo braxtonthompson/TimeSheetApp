@@ -1,5 +1,5 @@
 from selenium import webdriver
-from flask import session
+from flask import session, url_for
 from config import config
 import time, math, smtplib, ssl
 
@@ -55,9 +55,6 @@ class Auto:
             wrong_password_alert = None
 
         if not wrong_password_alert:
-
-            print ('running...')
-
             # Open Timesheet
             driver.find_element_by_id('id____UID5').click()
 
@@ -89,12 +86,30 @@ class Auto:
 
                 # Send Email
                 self.send_email(timesheet_period)
-            else:
-                print('Timesheet not submitted.')
 
-            session['status'] = f"Thanks, {self.name.split(' ', 1)[0]}!"
+                session['status'] = "Timesheet submitted."
+                session['name'] = self.name
+                session['hours_worked'] = self.hours_worked
+                session['timesheet_period'] = self.timesheet_period
+                session['status_img'] = url_for('static', filename='success_logo.png')
+
+            else:
+                session['status'] = 'Timesheet already submitted.'
+                session['name'] = self.name
+                session['hours_worked'] = self.hours_worked
+                session['timesheet_period'] = 'N/A'
+                session['mail_status'] = 'Not sent.'
+                session['status_img'] = url_for('static', filename='fail_logo.png')
+
+
         else:
-            session['status'] = 'Wrong Password'
+            session['status'] = 'Wrong Password.'
+            session['name'] = 'N/A'
+            session['hours_worked'] = 'N/A'
+            session['timesheet_period'] = 'N/A'
+            session['mail_status'] = 'Not sent.'
+            session['status_img'] = url_for('static', filename='fail_logo.png')
+
 
         # time.sleep(10000)
         driver.quit()
@@ -116,3 +131,5 @@ class Auto:
         server.starttls()
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, message)
+
+        session['mail_status'] = 'Sent.'

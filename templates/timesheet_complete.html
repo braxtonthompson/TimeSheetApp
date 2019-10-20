@@ -1,6 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>{{ status }}</h1>
+<div class="status-wrapper">
+    <img src="{{ status_img }}" class="status-img">
+</div>
+
+<table>
+    <tr>
+        <td><strong>Status</strong></td>
+        <td>{{ status }}</td>
+    </tr>
+    <tr>
+        <td><strong>Name</strong></td>
+        <td>{{ name }}</td>
+    </tr>
+    <tr>
+        <td><strong>Hours Worked</strong></td>
+        <td>{{ hours_worked }}</td>
+    </tr>
+    <tr>
+        <td><strong>Timesheet Period</strong></td>
+        <td>{{ timesheet_period }}</td>
+    </tr>
+    <tr>
+        <td><strong>Mail Status</strong></td>
+        <td>{{ mail_status }}</td>
+    </tr>
+</table>
+
 
 {% endblock content %}

@@ -119,6 +119,27 @@ form input[type=text], input[type=password] {
     text-align: center;
 }
 
+.status-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.status-img {
+    max-width: 100px;
+    margin-top: 25px;
+}
+
+table {
+    margin: 25px auto;;
+    width: 90%;
+    border: 1px solid lightgray;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid lightgray;
+}
+
 .credit {
     display: flex;
     align-items: center;
@@ -274,6 +295,19 @@ form input[type=text], input[type=password] {
     .center {
         text-align: center;
     }
+
+    table {
+        margin: 25px auto;;
+        width: 100%;
+        border: 1px solid lightgray;
+    }
+
+    td {
+        padding: 10px;
+        border: 1px solid lightgray;
+    }
+
+    tr:nth-child(even) {background-color: #f2f2f2;}
     
     .credit {
         display: flex;

@@ -1,5 +1,5 @@
 config = {
-    "recipient": "dana.jones@louisiana.edu",
+    "recipient": "C00412627@louisiana.edu",
     "secret_key": "c325bf048d4444685df73bfa95ce454c"
 }
 
