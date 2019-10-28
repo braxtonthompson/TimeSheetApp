@@ -12,7 +12,6 @@ class Auto:
         self.hours_worked = hours_worked
         self.number_of_segments = None
         self.segment_hours = None
-        self.timesheet_period = None
 
         Auto.segments(self)
         Auto.script(self)
@@ -90,7 +89,7 @@ class Auto:
                 session['status'] = "Timesheet submitted."
                 session['name'] = self.name
                 session['hours_worked'] = self.hours_worked
-                session['timesheet_period'] = self.timesheet_period
+                session['timesheet_period'] = timesheet_period
                 session['status_img'] = url_for('static', filename='success_logo.png')
 
             else:
